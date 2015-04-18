@@ -70,7 +70,6 @@ public class CoolWeatherDB {
 	 * 
 	 * @return
 	 */
-
 	public List<Province> loadProvinces() {
 		List<Province> list = new ArrayList<Province>();
 		Cursor cursor = db
@@ -121,7 +120,7 @@ public class CoolWeatherDB {
 			do {
 				City city = new City();
 				city.setId(cursor.getInt(cursor.getColumnIndex("id")));
-				city.setCityCode(cursor.getString(cursor
+				city.setCityName(cursor.getString(cursor
 						.getColumnIndex("city_name")));
 				city.setCityCode(cursor.getString(cursor
 						.getColumnIndex("city_code")));
