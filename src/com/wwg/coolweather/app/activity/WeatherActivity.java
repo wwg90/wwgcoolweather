@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wwg.coolweather.app.R;
+import com.wwg.coolweather.app.service.AutoUpdateService;
 import com.wwg.coolweather.app.util.HttpCallBackListener;
 import com.wwg.coolweather.app.util.HttpUtil;
 import com.wwg.coolweather.app.util.Utility;
@@ -69,7 +70,9 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		temp1Text = (TextView) findViewById(R.id.temp1);
 		temp2Text = (TextView) findViewById(R.id.temp2);
 		currentDateText = (TextView) findViewById(R.id.current_date);
-
+		switchCity = (Button) findViewById(R.id.switch_city);
+		refreshWeather = (Button) findViewById(R.id.refresh_weather);
+		
 		String countyCode = getIntent().getStringExtra("county_code");
 		if (!TextUtils.isEmpty(countyCode)) {
 			// 有县级代号时就去查询天气
@@ -77,10 +80,11 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
 			queryWeatherCode(countyCode);
+		}else{
+			// 没有县级代号时就直接显示本地天气
+			showWeather();
 		}
 		
-		switchCity = (Button) findViewById(R.id.switch_city);
-		refreshWeather = (Button) findViewById(R.id.refresh_weather);
 		switchCity.setOnClickListener(this);
 		refreshWeather.setOnClickListener(this);
 
@@ -170,13 +174,13 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		temp1Text.setText(prefs.getString("temp1", ""));
 		temp2Text.setText(prefs.getString("temp2", ""));
 		weatherDespText.setText(prefs.getString("weather_desp", ""));
-
 		publishText.setText("今天" + prefs.getString("publish_time", "") + "发布");
 		currentDateText.setText(prefs.getString("current_date", ""));
-
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
 
+		Intent intent = new Intent(this,AutoUpdateService.class);
+		startService(intent);
 	}
 
 	@Override
@@ -188,7 +192,6 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			finish();
 			break;
-			
 		case R.id.refresh_weather:
 			publishText.setText("同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -196,9 +199,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			if(!TextUtils.isEmpty(weatherCode)){
 				queryWeatherInfo(weatherCode);
 			}
-			
 			break;
-
 		default:
 			break;
 		}
