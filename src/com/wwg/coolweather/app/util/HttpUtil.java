@@ -33,7 +33,7 @@ public class HttpUtil {
 					while ((line = reader.readLine()) != null) {
 						response.append(line);
 					}
-					Log.d("wwg", "HttpUtil-response=="+response);
+//					Log.d("wwg", "HttpUtil-response=="+response);
 					if (listener != null) {
 						listener.onFinish(response.toString());
 					}

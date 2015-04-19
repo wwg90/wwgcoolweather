@@ -5,7 +5,6 @@ import com.wwg.coolweather.app.util.HttpUtil;
 import com.wwg.coolweather.app.util.Utility;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -35,8 +34,7 @@ public class AutoUpdateService extends Service {
 		}).start();
 		
 		AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		//int anHour = 8*60*60*1000;//这是8小时的毫秒数
-		int anHour = 1*60*60*1000;//这是1小时的毫秒数
+		int anHour = 6*60*60*1000;//这是6小时的毫秒数
 		long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
 		Intent i = new Intent(this,AutoUpdateService.class);
 		PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
@@ -51,7 +49,7 @@ public class AutoUpdateService extends Service {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String weatherCode = prefs.getString("weather_code", "");
 		String address = "http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
-		Log.d("wwg", "AutoUpdateService-updateWeather--address--"+address);
+//		Log.d("wwg", "AutoUpdateService-updateWeather--address--"+address);
 		HttpUtil.sendHttpRequest(address, new HttpCallBackListener() {
 			
 			@Override

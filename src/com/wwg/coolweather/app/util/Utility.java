@@ -27,7 +27,7 @@ public class Utility {
 	 */
 	public synchronized static boolean handleProvincesResponse(CoolWeatherDB coolWeatherDB,String response){
 		if(!TextUtils.isEmpty(response)){
-			Log.d("wwg", "utility-province-response="+response);
+//			Log.d("wwg", "utility-province-response="+response);
 			String[] allProvinces = response.split(",");
 			if(allProvinces != null && allProvinces.length > 0){
 				for(String p : allProvinces){
@@ -54,7 +54,7 @@ public class Utility {
 	
 	public static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String response,int provinceId){
 		if(!TextUtils.isEmpty(response)){
-			Log.d("wwg", "utility-city-response="+response);
+//			Log.d("wwg", "utility-city-response="+response);
 			String[] allCities = response.split(",");
 			if(allCities != null && allCities.length > 0){
 				for(String c : allCities){
@@ -83,7 +83,7 @@ public class Utility {
 	 */
 	public static boolean handleCountiesResponse(CoolWeatherDB coolWeatherDB,String response,int cityId){
 		if(!TextUtils.isEmpty(response)){
-			Log.d("wwg", "utility-county-response="+response);
+//			Log.d("wwg", "utility-county-response="+response);
 			String[] allCounties = response.split(",");
 			if(allCounties != null && allCounties.length > 0){
 				for(String c : allCounties){

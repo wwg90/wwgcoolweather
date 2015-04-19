@@ -130,7 +130,7 @@ public class ChooseAreaActivity extends Activity {
 
 	private void queryProvinces() {
 		provinceList = coolWeatherDB.loadProvinces();
-		Log.d("wwg", "choosearea--provinceList="+provinceList);
+//		Log.d("wwg", "choosearea--provinceList="+provinceList);
 		if (provinceList.size() > 0) {
 			dataList.clear();
 			for (Province province : provinceList) {
@@ -200,7 +200,7 @@ public class ChooseAreaActivity extends Activity {
 			@Override
 			public void onFinish(String response) {
 				boolean result = false;
-				Log.d("wwg", "queryFromServer="+response);
+//				Log.d("wwg", "queryFromServer="+response);
 				if ("province".equals(type)) {
 					result = Utility.handleProvincesResponse(coolWeatherDB,
 							response);
@@ -272,13 +272,11 @@ public class ChooseAreaActivity extends Activity {
 	 */
 	@Override
 	public void onBackPressed() {
-
 		if (currentLevel == LEVEL_COUNTY) {
 			queryCities();
 		} else if (currentLevel == LEVEL_CITY) {
 			queryProvinces();
 		} else {
-			
 			if(isFromWeatherActivity){
 				Intent intent = new Intent(this,WeatherActivity.class);
 				startActivity(intent);
